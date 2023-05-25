@@ -1,0 +1,73 @@
+title Realize Transaction
+
+actor User
+participant TransactionController
+participant TransactionService
+participant TransactionRepository
+participant CurrencyRepository
+participant UserRepository
+participant TransactionMapper
+
+activate TransactionController
+
+User->TransactionController: 1:realizeTransaction()
+note over User, TransactionController: Recieve a DTO
+
+deactivate TransactionController
+
+activate TransactionService
+
+TransactionService->CurrencyRepository:2:findCurrencyByNameFromNameTo()
+
+activate CurrencyRepository
+
+CurrencyRepository-xTransactionService:ifNotExist
+
+CurrencyRepository-->TransactionService: returnCurrency
+
+deactivate CurrencyRepository
+
+group 
+
+TransactionService->UserRepository:3:returnUserByEmail()
+
+activate UserRepository
+
+UserRepository-xTransactionService:ifNotExist
+
+UserRepository-->TransactionService:returnUser
+
+note over TransactionService, UserRepository:Realize this block twice to get both users
+
+deactivate UserRepository
+
+end
+
+TransactionService->TransactionService:4:userHaveMoney()
+
+activate TransactionService
+
+TransactionService-->TransactionService:returnBoolean
+
+deactivate TransactionService
+
+opt case dont have money
+TransactionService-->TransactionController:returnResponseEntityBadRequest
+end
+
+TransactionController->TransactionMapper:5:mapperTransaction
+
+activate TransactionMapper
+
+TransactionMapper-->TransactionController:returnTransaction
+
+deactivate TransactionMapper
+
+TransactionService->TransactionRepository:6:save()
+
+activate TransactionRepository
+deactivate TransactionRepository
+
+TransactionService-->TransactionController:returnResponseEntityOk
+
+deactivate TransactionService
