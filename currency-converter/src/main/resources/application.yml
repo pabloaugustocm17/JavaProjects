@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: currency-converter
+  datasource:
+    username: user
+    password: admin
+    url: jdbc:hsqldb:hsql://localhost:3306/test
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+  jpa:
+    hibernate:
+      ddl-auto: create
