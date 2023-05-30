@@ -2,7 +2,9 @@ package com.currencyconverter.mappers;
 
 import com.currencyconverter.dto.UserDTO;
 import com.currencyconverter.model.User;
+import org.springframework.stereotype.Component;
 
+@Component("User Mapper")
 public class UserMapper {
 
     public static User userMapper(UserDTO userDTO){

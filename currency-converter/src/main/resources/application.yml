@@ -7,7 +7,7 @@ spring:
   datasource:
     username: user
     password: admin
-    url: jdbc:hsqldb:hsql://localhost:3306/test
+    url: jdbc:hsqldb:mem:test
     driver-class-name: org.hsqldb.jdbc.JDBCDriver
   jpa:
     hibernate:
